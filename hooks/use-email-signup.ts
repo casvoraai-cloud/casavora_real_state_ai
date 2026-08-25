@@ -4,6 +4,7 @@ import { useState } from "react";
 import { getDeviceId, getDeviceName } from "@/lib/device";
 
 export function useEmailSignup(source: "Newsletter" | "Founding Members") {
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [sent, setSent] = useState(false);
   const [submitting, setSubmitting] = useState(false);
@@ -18,7 +19,7 @@ export function useEmailSignup(source: "Newsletter" | "Founding Members") {
       const res = await fetch("/api/submit", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ source, email, deviceId: getDeviceId(), deviceName: getDeviceName() }),
+        body: JSON.stringify({ source, name, email, deviceId: getDeviceId(), deviceName: getDeviceName() }),
       });
       const data = await res.json();
       if (!res.ok || !data.success) throw new Error(data.error ?? "Submission failed");
@@ -30,5 +31,5 @@ export function useEmailSignup(source: "Newsletter" | "Founding Members") {
     }
   };
 
-  return { email, setEmail, sent, submitting, error, submit };
+  return { name, setName, email, setEmail, sent, submitting, error, submit };
 }

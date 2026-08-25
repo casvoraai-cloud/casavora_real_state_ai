@@ -1,102 +1,14 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { toast } from "@/components/ui/toast";
-import { getDeviceId, getDeviceName } from "@/lib/device";
+import { useFamiliarChecklist } from "@/hooks/use-familiar-checklist";
+import { requestFoundingForm } from "@/lib/founding-flow";
 import { Reveal } from "./Reveal";
 import { ScrollCue } from "./ScrollCue";
 
-const ITEMS = [
-  "Forgot appliance warranty",
-  "Can't find insurance papers",
-  "Missed maintenance schedule",
-  "Tenant keeps texting you",
-  "Lost inspection report",
-  "Roof leak became expensive",
-  "Unsure what maintenance is due",
-  "Bills scattered across five apps",
-];
-
 export function SoundFamiliar() {
-  const [checked, setChecked] = useState<Set<number>>(new Set());
-  const toggle = (i: number) => {
-    setChecked((prev) => {
-      const next = new Set(prev);
-      if (next.has(i)) next.delete(i);
-      else next.add(i);
-      return next;
-    });
-  };
-
-  const recordId = useRef<string | null>(null);
-  const debounce = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const isFirstRender = useRef(true);
-  const isResetting = useRef(false);
-  const [submitting, setSubmitting] = useState(false);
-  const [submitted, setSubmitted] = useState(false);
-
-  const syncChecklist = () => {
-    const values = Object.fromEntries(ITEMS.map((item, i) => [item, checked.has(i) ? 1 : 0]));
-    return fetch("/api/checklist", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ id: recordId.current, values, deviceId: getDeviceId(), deviceName: getDeviceName() }),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.success && !recordId.current) recordId.current = data.id;
-        return data;
-      });
-  };
-
-  useEffect(() => {
-    if (isFirstRender.current) {
-      isFirstRender.current = false;
-      return;
-    }
-    if (isResetting.current) {
-      isResetting.current = false;
-      return;
-    }
-    setSubmitted(false);
-    if (debounce.current) clearTimeout(debounce.current);
-    debounce.current = setTimeout(() => {
-      syncChecklist().catch(() => {});
-    }, 600);
-    return () => {
-      if (debounce.current) clearTimeout(debounce.current);
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [checked]);
-
-  const handleSubmit = async () => {
-    if (checked.size === 0 || submitting) return;
-    if (debounce.current) clearTimeout(debounce.current);
-    setSubmitting(true);
-    try {
-      await syncChecklist();
-      setSubmitted(true);
-      toast.add({
-        title: "Thank you!",
-        description: "We successfully received your feedback.",
-        type: "success",
-      });
-      isResetting.current = true;
-      setChecked(new Set());
-      recordId.current = null;
-    } catch {
-      setSubmitted(false);
-      toast.add({
-        title: "Something went wrong",
-        description: "Your answers weren't saved. Please try again.",
-        type: "error",
-      });
-    } finally {
-      setSubmitting(false);
-    }
-  };
+  const { items, checked, toggle, submitting, submitted, handleSubmit } = useFamiliarChecklist();
 
   return (
     <section id="familiar" className="py-28 relative bg-surface border-y border-border">
@@ -114,7 +26,7 @@ export function SoundFamiliar() {
 
         <Reveal delay={100}>
           <div className="mt-14 grid sm:grid-cols-2 gap-3">
-            {ITEMS.map((item, i) => {
+            {items.map((item, i) => {
               const on = checked.has(i);
               return (
                 <Button
@@ -160,6 +72,21 @@ export function SoundFamiliar() {
               {submitting ? "Submitting…" : submitted ? "Submitted ✓" : "Submit"}
             </Button>
           </div>
+
+          {submitted && (
+            <div className="mt-8 flex flex-col items-center gap-3 rounded-2xl border border-green-500/30 bg-green-500/10 px-6 py-6 text-center max-w-xl mx-auto">
+              <div className="flex items-center gap-2 font-semibold text-green-700 dark:text-green-400">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M5 12l5 5L20 7" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" /></svg>
+                Does this sound familiar? Join Founding Members
+              </div>
+              <Button
+                onClick={requestFoundingForm}
+                className="h-auto rounded-full bg-green-600 px-8 py-2.5 text-sm font-semibold text-white hover-lift hover:bg-green-600/90"
+              >
+                Yes
+              </Button>
+            </div>
+          )}
         </Reveal>
         <ScrollCue to="journey" />
       </div>
