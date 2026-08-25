@@ -6,7 +6,7 @@ export function ScrollCue({ to, label = "Scroll to next section" }: { to: string
   };
 
   return (
-    <div className="mt-10 flex justify-center md:hidden">
+    <div className="mt-10 flex justify-center">
       <button
         type="button"
         onClick={handleClick}

@@ -23,12 +23,16 @@ export async function POST(request: Request) {
   if (typeof body.email !== "string" || !body.email.includes("@")) {
     return NextResponse.json({ success: false, error: "Valid 'email' is required" }, { status: 400 });
   }
+  if (source === "Founding Members" && (typeof body.name !== "string" || !body.name.trim())) {
+    return NextResponse.json({ success: false, error: "'name' is required" }, { status: 400 });
+  }
 
   const fields: Record<string, string | number | string[]> = {
     Email: body.email,
     ...getSubmissionMeta(request, body),
   };
 
+  if (typeof body.name === "string" && body.name.trim()) fields["Name"] = body.name.trim();
   if (typeof body.tool === "string" && body.tool) fields["Current Tool"] = body.tool;
   if (typeof body.stress === "number") fields["Stress Level"] = body.stress;
   if (Array.isArray(body.tasks) && body.tasks.length) fields["Hardest Tasks"] = body.tasks.join(", ");
