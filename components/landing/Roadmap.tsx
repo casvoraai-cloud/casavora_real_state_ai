@@ -1,6 +1,7 @@
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Reveal } from "./Reveal";
+import { ScrollCue } from "./ScrollCue";
 
 const roadmapImg = "/assets/roadmap-journey.png";
 
@@ -57,6 +58,7 @@ export function Roadmap() {
             Shape what's next
           </Button>
         </div>
+        <ScrollCue to="founding" />
       </div>
     </section>
   );

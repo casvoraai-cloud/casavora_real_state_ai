@@ -5,6 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Reveal } from "./Reveal";
+import { ScrollCue } from "./ScrollCue";
 
 const BENEFITS = [
   "Early access before public launch",
@@ -81,6 +82,7 @@ export function FoundingMembers() {
             </div>
           </div>
         </Reveal>
+        <ScrollCue to="survey" />
       </div>
     </section>
   );

@@ -53,6 +53,7 @@
   --radius-4xl: calc(var(--radius) * 2.6);
   --animate-float-slow: float-slow 6s ease-in-out infinite;
   --animate-float-slower: float-slower 9s ease-in-out infinite;
+  --animate-bounce-y: bounce-y 1.6s ease-in-out infinite;
 }
 
 :root {
@@ -201,4 +202,9 @@
 @keyframes float-slower {
   0%, 100% { transform: translateY(0); }
   50% { transform: translateY(-14px); }
+}
+
+@keyframes bounce-y {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(7px); }
 }

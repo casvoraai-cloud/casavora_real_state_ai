@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { toast } from "@/components/ui/toast";
 import { getDeviceId, getDeviceName } from "@/lib/device";
 import { Reveal } from "./Reveal";
+import { ScrollCue } from "./ScrollCue";
 
 const ITEMS = [
   "Forgot appliance warranty",
@@ -160,6 +161,7 @@ export function SoundFamiliar() {
             </Button>
           </div>
         </Reveal>
+        <ScrollCue to="journey" />
       </div>
     </section>
   );

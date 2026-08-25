@@ -1,6 +1,7 @@
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Reveal } from "./Reveal";
+import { ScrollCue } from "./ScrollCue";
 
 const onePlaceImg = "/assets/one-place-dashboard.png";
 
@@ -21,7 +22,7 @@ const TILES = [
 
 export function EverythingInOnePlace() {
   return (
-    <section className="py-28 bg-surface border-y border-border">
+    <section id="everything" className="py-28 bg-surface border-y border-border">
       <div className="mx-auto max-w-7xl px-6">
         <Reveal>
           <div className="text-center max-w-2xl mx-auto">
@@ -50,6 +51,7 @@ export function EverythingInOnePlace() {
             Explore the dashboard
           </Button>
         </div>
+        <ScrollCue to="roadmap" />
       </div>
     </section>
   );

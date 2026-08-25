@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Reveal } from "./Reveal";
+import { ScrollCue } from "./ScrollCue";
 
 const segmentsImg = "/assets/segments-roles.png";
 
@@ -37,7 +38,7 @@ const SEGMENTS = [
 export function Segments() {
   const [open, setOpen] = useState<number | null>(0);
   return (
-    <section className="py-28 bg-background">
+    <section id="segments" className="py-28 bg-background">
       <div className="mx-auto max-w-7xl px-6">
         <div className="grid md:grid-cols-2 gap-10 items-center">
           <Reveal>
@@ -89,6 +90,7 @@ export function Segments() {
             Join for your role
           </Button>
         </div>
+        <ScrollCue to="everything" />
       </div>
     </section>
   );

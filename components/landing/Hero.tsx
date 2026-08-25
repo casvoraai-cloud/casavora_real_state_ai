@@ -1,5 +1,6 @@
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { ScrollCue } from "./ScrollCue";
 
 const heroImg = "/assets/hero-homeowner.png";
 
@@ -90,6 +91,7 @@ export function Hero() {
           ))}
         </div>
       </div>
+      <ScrollCue to="familiar" />
     </section>
   );
 }

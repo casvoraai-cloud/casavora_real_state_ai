@@ -7,6 +7,7 @@ import { Input } from "@/components/ui/input";
 import { toast } from "@/components/ui/toast";
 import { getDeviceId, getDeviceName } from "@/lib/device";
 import { Reveal } from "./Reveal";
+import { ScrollCue } from "./ScrollCue";
 
 const TOOLS = ["Google Drive", "Excel / Sheets", "Paper folders", "Nothing yet", "A property agency"];
 const TASKS = ["Tracking maintenance", "Storing documents", "Managing tradies", "Insurance renewals", "Tenant communication", "Tax & expenses"];
@@ -174,6 +175,7 @@ export function ValidationSurvey() {
             )}
           </div>
         </Reveal>
+        <ScrollCue to="faq" />
       </div>
     </section>
   );

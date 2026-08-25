@@ -1,12 +1,13 @@
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Reveal } from "./Reveal";
+import { ScrollCue } from "./ScrollCue";
 
 const journeyImg = "/assets/journey-compare.png";
 
 export function JourneyCompare() {
   return (
-    <section className="py-28 bg-background">
+    <section id="journey" className="py-28 bg-background">
       <div className="mx-auto max-w-7xl px-6">
         <Reveal>
           <div className="text-center max-w-2xl mx-auto">
@@ -89,6 +90,7 @@ export function JourneyCompare() {
             See the prototype in action
           </Button>
         </div>
+        <ScrollCue to="demo" />
       </div>
     </section>
   );

@@ -8,6 +8,7 @@ import {
 } from "@/components/ui/accordion";
 import { Badge } from "@/components/ui/badge";
 import { Reveal } from "./Reveal";
+import { ScrollCue } from "./ScrollCue";
 
 const FAQS = [
   { q: "Why are you building this?", a: "Because property ownership is one of the biggest financial commitments of our lives — yet the tools for it live in inboxes, spreadsheets and shoeboxes. We think it deserves better." },
@@ -19,7 +20,7 @@ const FAQS = [
 
 export function Faq() {
   return (
-    <section className="py-28 bg-surface border-y border-border">
+    <section id="faq" className="py-28 bg-surface border-y border-border">
       <div className="mx-auto max-w-3xl px-6">
         <Reveal>
           <div className="text-center">
@@ -46,6 +47,7 @@ export function Faq() {
             ))}
           </Accordion>
         </div>
+        <ScrollCue to="newsletter" />
       </div>
     </section>
   );

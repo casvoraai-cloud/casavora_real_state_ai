@@ -6,7 +6,7 @@ const ctaImg = "/assets/final-cta-homeowner.png";
 
 export function FinalCta() {
   return (
-    <section className="py-28 bg-surface border-t border-border">
+    <section id="cta" className="py-28 bg-surface border-t border-border">
       <div className="mx-auto max-w-6xl px-6 grid md:grid-cols-2 gap-12 items-center">
         <Reveal>
           <img src={ctaImg} alt="Happy homeowner with an organized property dashboard" loading="lazy" width={1600} height={1000}

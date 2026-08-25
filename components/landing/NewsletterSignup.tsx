@@ -5,6 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Reveal } from "./Reveal";
+import { ScrollCue } from "./ScrollCue";
 
 export function NewsletterSignup() {
   const { email, setEmail, sent, submitting, error, submit } = useEmailSignup("Newsletter");
@@ -54,6 +55,7 @@ export function NewsletterSignup() {
             </div>
           </div>
         </Reveal>
+        <ScrollCue to="cta" />
       </div>
     </section>
   );

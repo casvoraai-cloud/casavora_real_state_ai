@@ -4,6 +4,7 @@ import { useState, type ReactNode } from "react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Reveal } from "./Reveal";
+import { ScrollCue } from "./ScrollCue";
 
 type Step = {
   label: string;
@@ -183,6 +184,7 @@ export function InteractiveDemo() {
             </div>
           </div>
         </Reveal>
+        <ScrollCue to="segments" />
       </div>
     </section>
   );
