@@ -18,15 +18,28 @@ const BENEFITS = [
   "Private beta with a small group",
 ];
 
-type Stage = "intro" | "checklist" | "confirm" | "form";
+type Stage = "form" | "checklist";
 
 export function FoundingMembers() {
-  const [stage, setStage] = useState<Stage>("intro");
-  const { items, checked, toggle, submitting: checklistSubmitting, handleSubmit: submitChecklist } =
-    useFamiliarChecklist(() => setStage("confirm"));
+  const [stage, setStage] = useState<Stage>("form");
+  const [skipChecklist, setSkipChecklist] = useState(false);
   const { name, setName, email, setEmail, sent, submitting, error, submit } = useEmailSignup("Founding Members");
+  const { items, checked, toggle, submitting: checklistSubmitting, handleSubmit: submitChecklist } =
+    useFamiliarChecklist(() => {
+      submit();
+    });
 
-  useEffect(() => onFoundingFormRequest(() => setStage("form")), []);
+  // Reached via SoundFamiliar's "Yes" — that already answered the checklist question.
+  useEffect(() => onFoundingFormRequest(() => setSkipChecklist(true)), []);
+
+  const handleContinue = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (skipChecklist) {
+      submit();
+    } else {
+      setStage("checklist");
+    }
+  };
 
   return (
     <section id="founding" className="py-28 bg-surface border-y border-border">
@@ -59,25 +72,43 @@ export function FoundingMembers() {
               </div>
 
               <div className="rounded-2xl bg-white/10 backdrop-blur border border-white/15 p-6">
-                {stage === "intro" && (
+                {!sent && stage === "form" && (
                   <>
                     <div className="text-sm text-white/70">Save your spot</div>
                     <div className="mt-1 text-xl font-semibold text-white">Join Founding Members</div>
-                    <p className="mt-3 text-sm text-white/70">
-                      One quick question first, then you&apos;re in.
-                    </p>
-                    <Button
-                      onClick={() => setStage("checklist")}
-                      className="mt-5 h-auto w-full rounded-xl bg-accent px-4 py-3 font-semibold text-accent-foreground hover-lift hover:bg-accent hover:text-white"
-                    >
-                      Claim my spot
-                    </Button>
+                    <form onSubmit={handleContinue} className="mt-5 space-y-3">
+                      <Input
+                        type="text"
+                        required
+                        value={name}
+                        onChange={(e) => setName(e.target.value)}
+                        placeholder="Your name"
+                        className="h-auto w-full rounded-xl bg-white/10 border-white/20 px-4 py-3 text-white placeholder:text-white/50 focus-visible:border-accent"
+                      />
+                      <Input
+                        type="email"
+                        required
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        placeholder="you@home.com"
+                        className="h-auto w-full rounded-xl bg-white/10 border-white/20 px-4 py-3 text-white placeholder:text-white/50 focus-visible:border-accent"
+                      />
+                      <Button
+                        type="submit"
+                        disabled={submitting}
+                        className="h-auto w-full rounded-xl bg-accent px-4 py-3 font-semibold text-accent-foreground hover-lift hover:bg-accent hover:text-white disabled:opacity-50"
+                      >
+                        {submitting ? "Submitting…" : "Claim my spot"}
+                      </Button>
+                      <p className="text-xs text-white/50">No spam. Ever. Unsubscribe anytime.</p>
+                      {error && <p className="text-xs text-red-200">{error}</p>}
+                    </form>
                   </>
                 )}
 
-                {stage === "checklist" && (
+                {!sent && stage === "checklist" && (
                   <>
-                    <div className="text-xs uppercase tracking-widest text-white/50">Step 1 of 2</div>
+                    <div className="text-xs uppercase tracking-widest text-white/50">Step 2 of 2</div>
                     <div className="mt-1 text-xl font-semibold text-white">Does this sound familiar?</div>
                     <p className="mt-2 text-sm text-white/70">Tick at least one — it helps us build for exactly this.</p>
                     <div className="mt-4 max-h-64 space-y-2 overflow-y-auto pr-1">
@@ -110,60 +141,24 @@ export function FoundingMembers() {
                     </div>
                     <Button
                       onClick={submitChecklist}
-                      disabled={checked.size === 0 || checklistSubmitting}
+                      disabled={checked.size === 0 || checklistSubmitting || submitting}
                       className="mt-5 h-auto w-full rounded-xl bg-accent px-4 py-3 font-semibold text-accent-foreground hover-lift hover:bg-accent hover:text-white disabled:opacity-50"
                     >
-                      {checklistSubmitting ? "Submitting…" : "Continue"}
+                      {checklistSubmitting || submitting ? "Submitting…" : "Submit"}
                     </Button>
                     <p className="mt-2 text-xs text-white/50">Select at least one to continue.</p>
-                  </>
-                )}
-
-                {stage === "confirm" && (
-                  <div className="py-4 text-center">
-                    <div className="mx-auto grid w-12 h-12 place-items-center rounded-full bg-accent text-xl font-bold text-accent-foreground">✓</div>
-                    <p className="mt-4 text-white">Thanks — that&apos;s exactly what we&apos;re building for.</p>
-                    <p className="mt-1 text-sm text-white/70">Ready to become a founding member?</p>
-                    <Button
-                      onClick={() => setStage("form")}
-                      className="mt-5 h-auto rounded-xl bg-accent px-6 py-3 font-semibold text-accent-foreground hover-lift hover:bg-accent hover:text-white"
-                    >
-                      Yes, count me in
-                    </Button>
-                  </div>
-                )}
-
-                {stage === "form" && !sent && (
-                  <>
-                    <div className="text-sm text-white/70">Save your spot</div>
-                    <div className="mt-1 text-xl font-semibold text-white">Join Founding Members</div>
-                    <form onSubmit={submit} className="mt-5 space-y-3">
-                      <Input
-                        type="text"
-                        required
-                        value={name}
-                        onChange={(e) => setName(e.target.value)}
-                        placeholder="Your name"
-                        className="h-auto w-full rounded-xl bg-white/10 border-white/20 px-4 py-3 text-white placeholder:text-white/50 focus-visible:border-accent"
-                      />
-                      <Input
-                        type="email"
-                        required
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        placeholder="you@home.com"
-                        className="h-auto w-full rounded-xl bg-white/10 border-white/20 px-4 py-3 text-white placeholder:text-white/50 focus-visible:border-accent"
-                      />
-                      <Button
-                        type="submit"
-                        disabled={submitting}
-                        className="h-auto w-full rounded-xl bg-accent px-4 py-3 font-semibold text-accent-foreground hover-lift hover:bg-accent hover:text-white disabled:opacity-50"
-                      >
-                        {submitting ? "Submitting…" : "Claim my spot"}
-                      </Button>
-                      <p className="text-xs text-white/50">No spam. Ever. Unsubscribe anytime.</p>
-                      {error && <p className="text-xs text-red-200">{error}</p>}
-                    </form>
+                    {error && (
+                      <div className="mt-3 space-y-2 text-center">
+                        <p className="text-xs text-red-200">{error}</p>
+                        <Button
+                          onClick={() => submit()}
+                          disabled={submitting}
+                          className="h-auto rounded-full bg-accent px-5 py-2 text-xs font-semibold text-accent-foreground hover-lift hover:bg-accent hover:text-white"
+                        >
+                          Try again
+                        </Button>
+                      </div>
+                    )}
                   </>
                 )}
 

@@ -77,7 +77,7 @@ export function SoundFamiliar() {
             <div className="mt-8 flex flex-col items-center gap-3 rounded-2xl border border-green-500/30 bg-green-500/10 px-6 py-6 text-center max-w-xl mx-auto">
               <div className="flex items-center gap-2 font-semibold text-green-700 dark:text-green-400">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M5 12l5 5L20 7" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" /></svg>
-                Does this sound familiar? Join Founding Members
+                Thank you for submission. Would you like to join as Founder Member
               </div>
               <Button
                 onClick={requestFoundingForm}

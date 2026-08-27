@@ -10,8 +10,7 @@ export function useEmailSignup(source: "Newsletter" | "Founding Members") {
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState("");
 
-  const submit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const submit = async () => {
     if (!email || submitting) return;
     setSubmitting(true);
     setError("");

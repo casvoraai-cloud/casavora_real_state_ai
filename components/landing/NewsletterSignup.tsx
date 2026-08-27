@@ -31,7 +31,10 @@ export function NewsletterSignup() {
                 </div>
               ) : (
                 <form
-                  onSubmit={submit}
+                  onSubmit={(e) => {
+                    e.preventDefault();
+                    submit();
+                  }}
                   className="mt-8 flex flex-col sm:flex-row gap-3 max-w-md mx-auto"
                 >
                   <Input

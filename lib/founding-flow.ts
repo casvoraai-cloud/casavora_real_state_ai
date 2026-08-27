@@ -1,8 +1,8 @@
 const EVENT_NAME = "cv:request-founding-form";
 
-// Called from SoundFamiliar's "Yes" prompt: tells the already-mounted
-// FoundingMembers section to open straight on its name/email form
-// instead of repeating the checklist step, then scrolls it into view.
+// Called from SoundFamiliar's "Yes" prompt: the visitor already answered the
+// "does this sound familiar" checklist there, so tell the already-mounted
+// FoundingMembers section to skip repeating that question, then scroll it into view.
 export function requestFoundingForm() {
   window.dispatchEvent(new Event(EVENT_NAME));
   document.getElementById("founding")?.scrollIntoView({ behavior: "smooth", block: "start" });
