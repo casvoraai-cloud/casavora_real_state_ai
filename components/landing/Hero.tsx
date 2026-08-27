@@ -42,7 +42,7 @@ export function Hero() {
             Stop juggling spreadsheets, emails, documents, tradespeople, inspections and reminders.
             One intelligent platform for every stage of property ownership.
           </p>
-          <div className="mt-8 flex flex-wrap items-center gap-6">
+          {/* <div className="mt-8 flex flex-wrap items-center gap-6">
             <Button render={<a href="#founding" />} nativeButton={false} className="h-auto rounded-full bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground hover-lift">
               Join Founding Members
             </Button>
@@ -53,14 +53,14 @@ export function Hero() {
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M8 5v14l11-7z" fill="currentColor"/></svg>
               Watch Prototype
             </a>
-          </div>
+          </div> */}
           <div className="mt-10 flex items-center gap-6 text-xs text-ink-soft">
-            <div className="flex -space-x-2">
+            {/* <div className="flex -space-x-2">
               {[0,1,2,3].map(i => (
                 <div key={i} className="w-7 h-7 rounded-full border-2 border-background"
                   style={{ background: `oklch(0.8 0.1 ${120 + i * 40})` }} />
               ))}
-            </div>
+            </div> */}
             <span>Join <b className="text-ink">328</b> homeowners shaping the platform</span>
           </div>
         </div>

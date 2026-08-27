@@ -18,8 +18,7 @@ export function SoundFamiliar() {
             <Badge variant="secondary" className="h-auto rounded-full bg-accent-soft px-3 py-1 text-sm font-medium text-accent-foreground">The Problem</Badge>
             <h2 className="mt-4 text-4xl md:text-5xl font-bold">Does this sound familiar?</h2>
             <p className="mt-4 text-ink-soft max-w-xl mx-auto">
-              Tick the ones you've felt. It's not just you — property ownership was never designed
-              to fit inside your inbox.
+              Tick the problem you had. It's not just you, property ownership was never designed to fit inside your head.
             </p>
           </div>
         </Reveal>
@@ -74,7 +73,7 @@ export function SoundFamiliar() {
           </div>
 
           {submitted && (
-            <div className="mt-8 flex flex-col items-center gap-3 rounded-2xl border border-green-500/30 bg-green-500/10 px-6 py-6 text-center max-w-xl mx-auto">
+            <div className="mt-8 flex flex-col items-center gap-2 rounded-2xl border border-green-500/30 bg-green-500/10 px-6 py-6 text-center max-w-xl mx-auto">
               <div className="flex items-center gap-2 font-semibold text-green-700 dark:text-green-400">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M5 12l5 5L20 7" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" /></svg>
                 Thank you for submission. Would you like to join as Founder Member

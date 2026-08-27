@@ -6,13 +6,13 @@ import { getSubmissionMeta } from "@/lib/request-meta";
 // (the Airtable table was built by hand with different wording/typos than the UI).
 const ITEM_FIELD_MAP: Record<string, string> = {
   "Forgot appliance warranty": "Forgot Applicance Warranty",
-  "Can't find insurance papers": "Can't Find insurance Paper",
+  "Had difficulties managing my legal documents": "Can't Find insurance Paper",
   "Missed maintenance schedule": "Missed Maintanence Shedule",
-  "Tenant keeps texting you": "Tennant Keeps Texting you",
-  "Lost inspection report": "Lost Inspection report",
-  "Roof leak became expensive": "Roof leak became expensive",
-  "Unsure what maintenance is due": "Unsure what maintenance is due",
-  "Bills scattered across five apps": "Bills scattered across file apps",
+  "Tenant management was consuming time & effort": "Tennant Keeps Texting you",
+  "Financial management & mortgage was confusing": "Lost Inspection report",
+  "Repairs were more expensive than expected": "Roof leak became expensive",
+  "Selecting & managing tradesmen was stressful": "Unsure what maintenance is due",
+  "Founded Hard to manage bills & receipts": "Bills scattered across file apps",
 };
 
 export async function POST(request: Request) {

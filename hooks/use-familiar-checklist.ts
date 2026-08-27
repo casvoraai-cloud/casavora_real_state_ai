@@ -6,13 +6,13 @@ import { getDeviceId, getDeviceName } from "@/lib/device";
 
 export const FAMILIAR_ITEMS = [
   "Forgot appliance warranty",
-  "Can't find insurance papers",
+  "Had difficulties managing my legal documents",
   "Missed maintenance schedule",
-  "Tenant keeps texting you",
-  "Lost inspection report",
-  "Roof leak became expensive",
-  "Unsure what maintenance is due",
-  "Bills scattered across five apps",
+  "Tenant management was consuming time & effort",
+  "Financial management & mortgage was confusing",
+  "Repairs were more expensive than expected",
+  "Selecting & managing tradesmen was stressful",
+  "Founded Hard to manage bills & receipts",
 ];
 
 export function useFamiliarChecklist(onSubmitted?: () => void) {
